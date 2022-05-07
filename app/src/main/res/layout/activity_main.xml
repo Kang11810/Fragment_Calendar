@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="1dp">
+        <!--요일을 표기할 레이아웃(하위 레이아웃을 수평으로 생성)-->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="일"
+            android:textSize="30dp"
+            android:gravity="center_horizontal"
+            android:background="#ff0000"/>
+        <!--일요일을 표기할 텍스트 뷰-->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="월"
+            android:textSize="30dp"
+            android:gravity="center_horizontal"
+            android:background="#ffffff"/>
+        <!--월요일을 표기할 텍스트 뷰-->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="화"
+            android:textSize="30dp"
+            android:gravity="center_horizontal"
+            android:background="#ffffff"/>
+        <!--화요일을 표기할 텍스트 뷰-->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="수"
+            android:textSize="30dp"
+            android:gravity="center_horizontal"
+            android:background="#ffffff"/>
+        <!--수요일을 표기할 텍스트 뷰-->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="목"
+            android:textSize="30dp"
+            android:gravity="center_horizontal"
+            android:background="#ffffff"/>
+        <!--목요일을 표기할 텍스트 뷰-->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="금"
+            android:textSize="30dp"
+            android:gravity="center_horizontal"
+            android:background="#ffffff"/>
+        <!--금요일을 표기할 텍스트 뷰-->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="토"
+            android:textSize="30dp"
+            android:gravity="center_horizontal"
+            android:background="#00aaff"/>
+        <!--토요일을 표기할 텍스트 뷰-->
+    </LinearLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+</LinearLayout>
