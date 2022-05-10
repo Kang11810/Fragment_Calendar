@@ -1,10 +1,10 @@
 package com.example.fragmentcalendar;
 
-public class MonthItem {
+public class WeekItem {
     private int day;
     boolean on = false;
 
-    MonthItem(int day){
+    WeekItem(int day){
         this.day =day;
     }
 
@@ -12,4 +12,3 @@ public class MonthItem {
         return day;
     }
 }
-/*달력의 날짜 하나의 값을 가질 클래스*/

@@ -1,7 +1,7 @@
 package com.example.fragmentcalendar;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
@@ -9,10 +9,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+
 public class MainActivity extends AppCompatActivity {
-    int year = 2022;
-    int month = 5;
-    String year_month = "";
+    Calendar cal;
+    int ThisYear;
+    int ThisMonth;
+    private ViewPager2 vpPager;
     public boolean onCreateOptionsMenu(Menu menu) {
 
         MenuInflater inflater = getMenuInflater();
@@ -27,31 +31,61 @@ public class MainActivity extends AppCompatActivity {
         item.setChecked(true);
         switch (item.getItemId()) {
             case R.id.month:
-                ViewPager2 vpPager = findViewById(R.id.container);
-                FragmentStateAdapter adapter = new PagerAdapter(this);
-                vpPager.setAdapter(adapter);
-                vpPager.setCurrentItem(1);
-                vpPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-                @Override
-                public void onPageSelected(int position) {
-                    switch (position){
-                        case 0:
-                            month = 4;
-                            year_month = year+"년 "+month+"월";
-                            setTitle(year_month);
-                        case 1:
-                            month = 5;
-                            year_month = year+"년 "+month+"월";
-                            setTitle(year_month);
-                        case 2:
-                            month = 6;
-                            year_month = year+"년 "+month+"월";
-                            setTitle(year_month);
+                ArrayList<Fragment> m_fragments = new ArrayList<>();
+                m_fragments.add(PreCalendarFragment.newCalendar());
+                m_fragments.add(CalendarFragment.newCalendar());
+                m_fragments.add(NextCalendarFragment.newCalendar());
+                vpPager = findViewById(R.id.container);
+                MonthPagerAdapter m_adapter = new MonthPagerAdapter(this,m_fragments);
+                vpPager.setAdapter(m_adapter);
+                cal.clear();
+                ThisMonth=ThisYear=0;
+                cal = Calendar.getInstance();
+                ThisYear = cal.get(Calendar.YEAR);   //현재연도값
+                ThisMonth = cal.get(Calendar.MONTH)+1; //현재월값
+                setTitle(ThisYear+"년 "+ThisMonth+"월");
+                vpPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback(){
+                    public void onPageSelected(int position){
+                        cal.set(Calendar.MONTH,4);
+                        if (position==0){
+                            cal.set(Calendar.MONTH,3);
+                            ThisMonth=cal.get(Calendar.MONTH)+1;
+                            setTitle(ThisYear+"년 "+ThisMonth+"월");
+                        }
+                        if (position==1){
+                            if(ThisMonth==4){
+                                cal.add(Calendar.MONTH, +1);
+                                ThisMonth=cal.get(Calendar.MONTH)+1;
+                                setTitle(ThisYear+"년 "+ThisMonth+"월");
+                            }
+                            else if(ThisMonth==6){
+                                cal.add(Calendar.MONTH, -1);
+                                ThisMonth=cal.get(Calendar.MONTH)+1;
+                                setTitle(ThisYear+"년 "+ThisMonth+"월");
+                            }
+                        }
+                        if (position==2){
+                            cal.set(Calendar.MONTH,5);
+                            ThisMonth=cal.get(Calendar.MONTH)+1;
+                            setTitle(ThisYear+"년 "+ThisMonth+"월");
+                        }
                     }
-                }
-            });
+                });
                 return true;
             case R.id.week:
+                ArrayList<Fragment> w_fragments = new ArrayList<>();
+                w_fragments.add(PreWeekFragment.weekCalendar());
+                w_fragments.add(WeekFragment.weekCalendar());
+                w_fragments.add(NextWeekFragment.weekCalendar());
+                vpPager = findViewById(R.id.container);
+                WeekPagerAdapter w_adapter = new WeekPagerAdapter(this,w_fragments);
+                vpPager.setAdapter(w_adapter);
+                cal.clear();
+                ThisMonth=ThisYear=0;
+                cal = Calendar.getInstance();
+                ThisYear = cal.get(Calendar.YEAR);   //현재연도값
+                ThisMonth = cal.get(Calendar.MONTH)+1; //현재월값
+                setTitle(ThisYear+"년 "+ThisMonth+"월");
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -62,30 +96,58 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ViewPager2 vpPager = findViewById(R.id.container);
-        PagerAdapter adapter = new PagerAdapter(this);
-        vpPager.setAdapter(adapter);
-        vpPager.setCurrentItem(1);
-        year_month = year+"년 "+month+"월";
-        setTitle(year_month);
-        vpPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                switch (position){
-                    case 0:
-                        month = 4;
-                        year_month = year+"년 "+month+"월";
-                        setTitle(year_month);
-                    case 1:
-                        month = 5;
-                        year_month = year+"년 "+month+"월";
-                        setTitle(year_month);
-                    case 2:
-                        month = 6;
-                        year_month = year+"년 "+month+"월";
-                        setTitle(year_month);
+
+
+        ArrayList<Fragment> w_fragments = new ArrayList<>();
+        w_fragments.add(WeekFragment.weekCalendar());
+        vpPager = findViewById(R.id.container);
+        WeekPagerAdapter w_adapter = new WeekPagerAdapter(this,w_fragments);
+        vpPager.setAdapter(w_adapter);
+        ThisMonth=ThisYear=0;
+        cal = Calendar.getInstance();
+        ThisYear = cal.get(Calendar.YEAR);   //현재연도값
+        ThisMonth = cal.get(Calendar.MONTH)+1; //현재월값
+        setTitle(ThisYear+"년 "+ThisMonth+"월");
+        /*
+        ArrayList<Fragment> m_fragments = new ArrayList<>();
+
+        m_fragments.add(PreCalendarFragment.newCalendar());
+        m_fragments.add(CalendarFragment.newCalendar());
+        m_fragments.add(NextCalendarFragment.newCalendar());
+
+        vpPager = findViewById(R.id.container);
+        MonthPagerAdapter m_adapter = new MonthPagerAdapter(this,m_fragments);
+        vpPager.setAdapter(m_adapter);
+        cal = Calendar.getInstance();
+        ThisYear = cal.get(Calendar.YEAR);   //현재연도값
+        ThisMonth = cal.get(Calendar.MONTH)+1; //현재월값
+        setTitle(ThisYear+"년 "+ThisMonth+"월");
+
+        vpPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback(){
+            public void onPageSelected(int position){
+                if (position==0){
+                    cal.add(Calendar.MONTH, -1);
+                    ThisMonth=cal.get(Calendar.MONTH)+1;
+                    setTitle(ThisYear+"년 "+ThisMonth+"월");
+                }
+                if (position==1){
+                    if(ThisMonth==4){
+                        cal.add(Calendar.MONTH, +1);
+                        ThisMonth=cal.get(Calendar.MONTH)+1;
+                        setTitle(ThisYear+"년 "+ThisMonth+"월");
+                    }
+                    else if(ThisMonth==6){
+                        cal.add(Calendar.MONTH, -1);
+                        ThisMonth=cal.get(Calendar.MONTH)+1;
+                        setTitle(ThisYear+"년 "+ThisMonth+"월");
+                    }
+                }
+                if (position==2){
+                    cal.add(Calendar.MONTH, +1);
+                    ThisMonth=cal.get(Calendar.MONTH)+1;
+                    setTitle(ThisYear+"년 "+ThisMonth+"월");
                 }
             }
-        });
+        });*/
     }
 }

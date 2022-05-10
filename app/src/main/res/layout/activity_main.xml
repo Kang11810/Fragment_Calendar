@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginLeft="3dp"
         android:layout_marginBottom="1dp">
         <!--요일을 표기할 레이아웃(하위 레이아웃을 수평으로 생성)-->
         <TextView
