@@ -49,7 +49,7 @@ public class PreCalendarFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_calendar , container, false);
         gv = rootView.findViewById(R.id.monthView);
         adt = new MonthAdapter(getContext());
-        adt.setPreviousMonth();
+        adt.setPreviousMonth();//어댑터 이전달로 변경
         gv.setAdapter(adt);
         gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

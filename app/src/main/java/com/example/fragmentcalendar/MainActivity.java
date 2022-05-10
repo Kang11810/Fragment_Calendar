@@ -8,10 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -23,10 +20,8 @@ public class MainActivity extends AppCompatActivity {
 
     LinearLayout main;
     public boolean onCreateOptionsMenu(Menu menu) {
-
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
-
         menu.findItem(R.id.month).setChecked(true);
         return super.onCreateOptionsMenu(menu);
 

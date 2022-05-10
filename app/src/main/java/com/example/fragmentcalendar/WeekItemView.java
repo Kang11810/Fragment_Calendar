@@ -19,7 +19,7 @@ public class WeekItemView extends AppCompatTextView {
             super(context, attrs);
             init();
         }
-        /*MonthItemView 클래스 생성 (WeekItem 을 보여주기 위한 클래스)*/
+        /*WeekItemView 클래스 생성 (WeekItem 을 보여주기 위한 클래스)*/
         private void init(){
             setBackgroundColor(Color.WHITE); //배경색을 하얀색으로 설정(초기화)
         }

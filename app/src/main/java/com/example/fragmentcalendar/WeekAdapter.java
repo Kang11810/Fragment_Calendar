@@ -31,7 +31,7 @@ public class WeekAdapter extends BaseAdapter {
         mContext = context;
         init();
     }
-    /*어댑터 클래스 생성(MonthItemView 를 레이아웃에 붙이기 위한 클래스)*/
+    /*어댑터 클래스 생성(WeekItemView 를 레이아웃에 붙이기 위한 클래스)*/
 
     public void calculate(){
         for(int i=0; i<items.length; i++){ //items[] 모든 값 0으로 초기화
@@ -42,7 +42,6 @@ public class WeekAdapter extends BaseAdapter {
 
 
         for(int i=0; i<7; i++){
-            /* 1일의 요일에 따라 시작위치 다르고 마지막 날짜까지 값 지정*/
             items[i] = new WeekItem(cnt);
             cnt++;
         }

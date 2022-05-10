@@ -13,12 +13,12 @@ public class MonthPagerAdapter extends FragmentStateAdapter {
 
 
     public MonthPagerAdapter(@NonNull FragmentActivity fragmentActivity, ArrayList list) {
+        //프래그먼트 리스트를 받아 어댑터 생성
         super(fragmentActivity);
         this.mFragments = list;
     }
 
     // 각 페이지를 나타내는 프래그먼트 반환
-    @NonNull
     @Override
     public Fragment createFragment(int position) {
         return mFragments.get(position);
