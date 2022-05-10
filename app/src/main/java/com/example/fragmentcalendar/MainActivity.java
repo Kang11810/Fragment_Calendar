@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -17,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     int ThisYear;
     int ThisMonth;
     private ViewPager2 vpPager;
+
+    LinearLayout main;
     public boolean onCreateOptionsMenu(Menu menu) {
 
         MenuInflater inflater = getMenuInflater();
@@ -31,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         item.setChecked(true);
         switch (item.getItemId()) {
             case R.id.month:
+                main = (LinearLayout)findViewById(R.id.main);
+                main.setPadding(0,0,0,0);
                 ArrayList<Fragment> m_fragments = new ArrayList<>();
                 m_fragments.add(PreCalendarFragment.newCalendar());
                 m_fragments.add(CalendarFragment.newCalendar());
@@ -73,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
                 });
                 return true;
             case R.id.week:
+                main = (LinearLayout)findViewById(R.id.main);
+                main.setPadding(50,0,0,0);
                 ArrayList<Fragment> w_fragments = new ArrayList<>();
                 w_fragments.add(PreWeekFragment.weekCalendar());
                 w_fragments.add(WeekFragment.weekCalendar());
@@ -86,6 +95,12 @@ public class MainActivity extends AppCompatActivity {
                 ThisYear = cal.get(Calendar.YEAR);   //현재연도값
                 ThisMonth = cal.get(Calendar.MONTH)+1; //현재월값
                 setTitle(ThisYear+"년 "+ThisMonth+"월");
+                vpPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback(){
+                    public void onPageSelected(int position){
+                        ThisMonth=5;
+                        setTitle(ThisYear+"년 "+ThisMonth+"월");
+                    }
+                });
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -97,18 +112,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        ArrayList<Fragment> w_fragments = new ArrayList<>();
-        w_fragments.add(WeekFragment.weekCalendar());
-        vpPager = findViewById(R.id.container);
-        WeekPagerAdapter w_adapter = new WeekPagerAdapter(this,w_fragments);
-        vpPager.setAdapter(w_adapter);
-        ThisMonth=ThisYear=0;
-        cal = Calendar.getInstance();
-        ThisYear = cal.get(Calendar.YEAR);   //현재연도값
-        ThisMonth = cal.get(Calendar.MONTH)+1; //현재월값
-        setTitle(ThisYear+"년 "+ThisMonth+"월");
-        /*
+        main = (LinearLayout)findViewById(R.id.main);
+        main.setPadding(0,0,0,0);
         ArrayList<Fragment> m_fragments = new ArrayList<>();
 
         m_fragments.add(PreCalendarFragment.newCalendar());
@@ -148,6 +153,6 @@ public class MainActivity extends AppCompatActivity {
                     setTitle(ThisYear+"년 "+ThisMonth+"월");
                 }
             }
-        });*/
+        });
     }
 }

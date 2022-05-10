@@ -13,6 +13,7 @@ import java.util.Calendar;
 public class WeekAdapter extends BaseAdapter {
     Calendar cal; //java 의 캘린더 함수
 
+    int cnt = 8;
     Context mContext;
 
     int ThisYear;       //연
@@ -39,10 +40,7 @@ public class WeekAdapter extends BaseAdapter {
 
         cal.setFirstDayOfWeek(Calendar.SUNDAY);
 
-        int startDay = cal.get(Calendar.DAY_OF_WEEK); //현재 달 1일의 요일 (1~7=일~토)
-        int lastDay = cal.getActualMaximum(Calendar.DATE); //달의 마지막 날짜
 
-        int cnt = cal.getTime().getDay()-1;
         for(int i=0; i<7; i++){
             /* 1일의 요일에 따라 시작위치 다르고 마지막 날짜까지 값 지정*/
             items[i] = new WeekItem(cnt);
@@ -60,13 +58,13 @@ public class WeekAdapter extends BaseAdapter {
         calculate();                    //날짜 계산해서 items[] 배열 값 설정
     }
 
-    public void setPreviousWeek(){     //한 달 앞으로 가고 다시 계산
-        cal.add(Calendar.WEEK_OF_MONTH, -1);
+    public void setPreviousWeek(){
+        cnt=1;
         calculate();
     }
 
     public void setNextWeek(){
-        cal.add(Calendar.WEEK_OF_MONTH, 1);  //한 달 뒤로가고 다시 계산
+        cnt=15;
         calculate();
     }
 
@@ -87,8 +85,8 @@ public class WeekAdapter extends BaseAdapter {
         if(position%7==6) {   //토요일은 날짜 색 파란색으로
             view.setTextColor(Color.BLUE);
         }
-        GridView.LayoutParams params = new GridView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
-        /*그리드뷰의 레이아웃 파라미터 생성(가로 MATCH_PARENT, 세로 322*/
+        GridView.LayoutParams params = new GridView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,150);
+        /*그리드뷰의 레이아웃 파라미터 생성(가로 MATCH_PARENT, 세로 150*/
         view.setLayoutParams(params); //그리드뷰의 레이아웃 파라미터 설정
 
         return view; //뷰 리턴

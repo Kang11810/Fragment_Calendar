@@ -45,10 +45,8 @@ public class WeekFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //프래그먼트 메인을 인플레이트해주고 컨테이너에 붙여달라는 뜻임
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_week , container, false);
-        gv = rootView.findViewById(R.id.week);
+        gv = rootView.findViewById(R.id.WeekView);
         adt = new WeekAdapter(getContext());
-        if(adt==null)
-            return rootView;
         gv.setAdapter(adt);
         gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

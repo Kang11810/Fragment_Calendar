@@ -43,26 +43,26 @@ public class NextWeekFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //프래그먼트 메인을 인플레이트해주고 컨테이너에 붙여달라는 뜻임
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_week , container, false);
-        gv = rootView.findViewById(R.id.week);
+        gv = rootView.findViewById(R.id.WeekView);
         adt = new WeekAdapter(getContext());
         adt.setNextWeek();
         gv.setAdapter(adt);
         gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                WeekItem item = (WeekItem) adt.getItem(i);  //날짜값을 받아올 MonthItem 객체 생성
+                WeekItem item = (WeekItem) adt.getItem(i);  //날짜값을 받아올 WeekItem 객체 생성
+                if(!((WeekItem) adt.getItem(i)).on) {
+                    view.setBackgroundColor(CYAN);
+                    ((WeekItem) adt.getItem(i)).on=true;
+                }
+                else {
+                    view.setBackgroundColor(WHITE);
+                    ((WeekItem) adt.getItem(i)).on=false;
+                }
                 if (item.getDay() > 0) { //날짜가 존재한다면(날짜가 존재하지 않으면 날짜값이 0임)
                     Toast.makeText(getActivity().getApplicationContext(), adt.ThisYear + "."
                                     + (adt.ThisMonth + 1) + "." + item.getDay(),
                             Toast.LENGTH_SHORT).show();
-                    if(((WeekItem) adt.getItem(i)).on==false) {
-                        view.setBackgroundColor(CYAN);
-                        ((WeekItem) adt.getItem(i)).on=true;
-                    }
-                    else {
-                        view.setBackgroundColor(WHITE);
-                        ((WeekItem) adt.getItem(i)).on=false;
-                    }
                     /*adt 의 년,월 Item 의 날짜값을 토스트메세지로 출력*/
                 }
             }
